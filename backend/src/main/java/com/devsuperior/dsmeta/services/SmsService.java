@@ -34,13 +34,16 @@ public class SmsService {
 		String mensagem;
 		
 		mensagem="Vendedor " + sale.getSellerName();
+		mensagem="Olá dudows";
 		
-		Twilio.init(twilioSid, twilioKey);
+		//Twilio.init(twilioSid, twilioKey);
+		Twilio.init("AC6bb6f9ce1489e96cea695a83fa04b7af", "f348d5dc60f185120979a56af9b4d1c2");
 
-		PhoneNumber to = new PhoneNumber(twilioPhoneTo);
-		PhoneNumber from = new PhoneNumber(twilioPhoneFrom);
-
+		PhoneNumber to = new PhoneNumber("+14014257906");
+		PhoneNumber from = new PhoneNumber("+55062982048319");
+		
 		Message message = Message.creator(to, from, mensagem).create();
+		//Message message = Message.creator("+14014257906", "+5562982048319", mensagem).create();
 
 		System.out.println(message.getSid());
 	}
