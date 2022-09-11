@@ -4,16 +4,19 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devsuperior.dsmeta.entities.Sale;
 import com.devsuperior.dsmeta.services.SalesService;
+import com.devsuperior.dsmeta.services.SmsService;
 
 
 @RestController
@@ -22,6 +25,9 @@ public class SaleController {
 
 	@Autowired
 	private SalesService servico;
+	
+	@Autowired
+	private SmsService smsSservico;
 	
 	@GetMapping
 	public Page<Sale> findSales(
@@ -36,6 +42,11 @@ public class SaleController {
 		
 		return servico.findSales(min,max,pageable);
 
+	}
+	
+	@GetMapping("{id}/notification")
+	private void notifySms(@PathVariable Long id) {
+		smsSservico.sendSms(id);
 	}
 	//public Page<Sale> findSales(Pageable pageable)
 	//{
